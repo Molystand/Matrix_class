@@ -6,35 +6,35 @@ using System.Threading.Tasks;
 
 namespace Matrix_class
 {
-    class Matrix
+    class Matrix<T> : ICloneable
     {
-        private double[, ] matrix;
-        private int row_;        // Количество строк
-        private int col_;        // Количество столбцов
+        private T[,] matrix;
+        private int row;        // Количество строк
+        private int col;        // Количество столбцов
 
 
         public int Row
         {
             get
             {
-                return row_;
+                return this.row;
             }
         }
         public int Col
         {
             get
             {
-                return col_;
+                return this.col;
             }
         }
 
 
         public Matrix(int row, int col)
         {
-            row_ = row;     /// Сменить именование
-            col_ = col;
+            this.row = row;     /// Сменить именование
+            this.col = col;
 
-            matrix = new double[Row, Col];
+            matrix = new T[Row, Col];
             /*
             matrix = new double[Row][];
             for (int i = 0; i < Row; i++)
@@ -42,6 +42,11 @@ namespace Matrix_class
                 matrix[i] = new double[Col];
             }
             */
+        }
+
+        ~Matrix()
+        {
+            //Console.WriteLine("Destroy");
         }
 
         // Ввод с клавиатуры
@@ -85,7 +90,7 @@ namespace Matrix_class
             return this.ToString() == obj.ToString();
         }
 
-        public double this[int row, int col]
+        public T this[int row, int col]
         {
             get
             {
@@ -96,5 +101,58 @@ namespace Matrix_class
                 matrix[row, col] = value;
             }
         }
+
+        public object Clone()
+        {
+            Matrix<T> clone = new Matrix<T>(this.Row, this.Col);
+
+            for (int i = 0; i < clone.Row; i++)
+            {
+                for (int j = 0; j < clone.Col; j++)
+                {
+                    clone[i, j] = this[i, j];
+                }
+            }
+
+            return clone;
+        }
+
+
+        public static bool operator==(Matrix<T> lMatr, Matrix<T> rMatr)
+        {
+            return lMatr.Equals(rMatr);
+        }
+
+        public static bool operator!=(Matrix<T> lMatr, Matrix<T> rMatr)
+        {
+            return !lMatr.Equals(rMatr);
+        }
+
+
+        /*
+        public static Matrix<T> operator+(Matrix<T> lMatr, Matrix<T> rMatr)
+        {
+            /// Проверка размерностей
+
+            Matrix<T> resMatr = new Matrix<T>(lMatr.Row, lMatr.Col);
+
+            for (int i = 0; i < resMatr.Row; i++)
+            {
+                for (int j = 0; j < resMatr.Col; j++)
+                {
+                    resMatr[i, j] = lMatr[i, j] + rMatr[i, j];
+                }
+            }
+
+            return resMatr;
+        }
+        */
+
+        /*
+        interface IBinAlgOp<T>
+        {
+            static T operator+(T left, T right);
+        }
+        */
     }
 }

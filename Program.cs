@@ -10,17 +10,19 @@ namespace Matrix_class
     {
         static void Main(string[] args)
         {
-            Matrix matr = new Matrix(2, 3);
+            Matrix<bool> matr = new Matrix<bool>(2, 3);
             //matr[0, 1] = 7;
             //matr[1, 2] = 2;
 
-            Matrix matr1 = new Matrix(2, 3);
+            Matrix<double> matr1 = new Matrix<double>(2, 3);
+
+            Matrix<double> matrDouble = (Matrix<double>)matr1.Clone();
             matr1[1, 1] = -3;
 
-            Console.WriteLine("{0}", Equals(matr1, matr));
-
-            Console.WriteLine("{0}", matr1);
-            Console.WriteLine("Matrix:\n{0}", matr);
+            Console.WriteLine("{0}\n", matr1 == matrDouble);
+            Console.WriteLine("matr1:\n{0}", matr1);
+            Console.WriteLine("matr:\n{0}", matr);
+            Console.WriteLine("matrDouble:\n{0}", matrDouble);
             Console.ReadLine();
         }
     }
