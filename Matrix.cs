@@ -60,18 +60,29 @@ namespace Matrix_class
 
         public override string ToString()
         {
-            string str = "";
+            StringBuilder builder = new StringBuilder();
 
             for (int i = 0; i < Row; i++)
             {
                 for (int j = 0; j < Col; j++)
                 {
-                    str += matrix[i, j].ToString() + ' ';
+                    builder.Append(matrix[i, j]);
+                    builder.Append(' ');
                 }
-                str += '\n';
+                builder.Append('\n');
             }
 
-            return str;
+            return builder.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.ToString() == obj.ToString();
         }
 
         public double this[int row, int col]
