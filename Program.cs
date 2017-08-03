@@ -16,7 +16,7 @@ namespace Matrix_class
 
             Matrix<double> matr1 = new Matrix<double>(2, 3);
 
-            Matrix<double> matrDouble = (Matrix<double>)matr1.Clone();
+            Matrix<double> matrDouble = (Matrix<double>)matr1.Transposition().Clone();
             matr1[1, 1] = -3;
 
             Console.WriteLine("{0}\n", matr1 == matrDouble);

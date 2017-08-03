@@ -28,7 +28,6 @@ namespace Matrix_class
             }
         }
 
-
         public Matrix(int row, int col)
         {
             this.row = row;     /// Сменить именование
@@ -90,6 +89,7 @@ namespace Matrix_class
             return this.ToString() == obj.ToString();
         }
 
+        // Индексатор
         public T this[int row, int col]
         {
             get
@@ -102,6 +102,7 @@ namespace Matrix_class
             }
         }
 
+        // Глубокое копирование
         public object Clone()
         {
             Matrix<T> clone = new Matrix<T>(this.Row, this.Col);
@@ -117,17 +118,31 @@ namespace Matrix_class
             return clone;
         }
 
-
+        // Операторы эквивалентности
         public static bool operator==(Matrix<T> lMatr, Matrix<T> rMatr)
         {
             return lMatr.Equals(rMatr);
         }
-
         public static bool operator!=(Matrix<T> lMatr, Matrix<T> rMatr)
         {
             return !lMatr.Equals(rMatr);
         }
 
+        // Транспонирование матрицы
+        public Matrix<T> Transposition()
+        {
+            Matrix<T> resMatr = new Matrix<T>(this.Col, this.Row);
+
+            for (int i = 0; i < resMatr.Row; i++)
+            {
+                for (int j = 0; j < resMatr.Col; j++)
+                {
+                    resMatr[i, j] = this[j, i];
+                }
+            }
+
+            return resMatr;
+        }
 
         /*
         public static Matrix<T> operator+(Matrix<T> lMatr, Matrix<T> rMatr)
