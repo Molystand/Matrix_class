@@ -30,7 +30,7 @@ namespace Matrix_class
 
         public Matrix(int row, int col)
         {
-            this.row = row;     /// Сменить именование
+            this.row = row;
             this.col = col;
 
             matrix = new T[Row, Col];
@@ -43,10 +43,12 @@ namespace Matrix_class
             */
         }
 
+        /*
         ~Matrix()
         {
-            //Console.WriteLine("Destroy");
+            Console.WriteLine("Destroy");
         }
+        */
 
         // Ввод с клавиатуры
         /*
@@ -144,24 +146,80 @@ namespace Matrix_class
             return resMatr;
         }
 
-        /*
+        // Бинарные операции над матрицами
+
         public static Matrix<T> operator+(Matrix<T> lMatr, Matrix<T> rMatr)
         {
             /// Проверка размерностей
 
             Matrix<T> resMatr = new Matrix<T>(lMatr.Row, lMatr.Col);
 
+            dynamic lVal;
+            dynamic rVal;
+
             for (int i = 0; i < resMatr.Row; i++)
             {
                 for (int j = 0; j < resMatr.Col; j++)
                 {
-                    resMatr[i, j] = lMatr[i, j] + rMatr[i, j];
+                    lVal = lMatr[i, j];
+                    rVal = rMatr[i, j];
+
+                    resMatr[i, j] = lVal + rVal;
                 }
             }
 
             return resMatr;
         }
-        */
+
+        public static Matrix<T> operator-(Matrix<T> lMatr, Matrix<T> rMatr)
+        {
+            /// Проверка размерностей
+
+            Matrix<T> resMatr = new Matrix<T>(lMatr.Row, lMatr.Col);
+
+            dynamic lVal;
+            dynamic rVal;
+
+            for (int i = 0; i < resMatr.Row; i++)
+            {
+                for (int j = 0; j < resMatr.Col; j++)
+                {
+                    lVal = lMatr[i, j];
+                    rVal = rMatr[i, j];
+
+                    resMatr[i, j] = lVal - rVal;
+                }
+            }
+
+            return resMatr;
+        }
+
+        public static Matrix<T> operator*(Matrix<T> lMatr, Matrix<T> rMatr)
+        {
+            /// Проверка размерностей
+
+            Matrix<T> resMatr = new Matrix<T>(lMatr.Row, rMatr.Col);
+
+            dynamic lVal;
+            dynamic rVal;
+
+            for (int i = 0; i < resMatr.Row; i++)
+            {
+                for (int j = 0; j < resMatr.Col; j++)
+                {
+                    for (int k = 0; k < lMatr.Col; k++)
+                    {
+                        lVal = lMatr[i, k];
+                        rVal = rMatr[k, j];
+
+                        resMatr[i, j] += lVal * rVal;
+                    }
+                }
+            }
+            
+            return resMatr;
+        }
+
 
         /*
         interface IBinAlgOp<T>
